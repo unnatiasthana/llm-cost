@@ -1,5 +1,5 @@
 {
-  "name": "llm-cost",
+  "name": "costllm",
   "version": "1.0.0",
   "description": "Estimate LLM token cost before you send the API call. OpenAI, Anthropic, Gemini, Groq.",
   "type": "module",

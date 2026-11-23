@@ -1,9 +1,9 @@
-# llm-cost
+# costllm
 
 Estimate token cost **before** you send the API call. OpenAI, Anthropic, Gemini, Groq. Zero dependencies.
 
 ```js
-import { estimateCost } from 'llm-cost';
+import { estimateCost } from 'costllm';
 
 estimateCost({ model: 'claude-sonnet-4-6', prompt: myPrompt });
 // → { inputTokens: 342, outputTokens: 0, cost: '$0.0010', costUSD: 0.001026, provider: 'Anthropic' }
@@ -13,7 +13,7 @@ estimateCost({ model: 'gpt-4o', prompt, outputTokens: 500 }); // include expecte
 
 ## Custom models / prices
 ```js
-import { registerModel } from 'llm-cost';
+import { registerModel } from 'costllm';
 registerModel('my-model', { provider: 'Acme', input: 1.0, output: 3.0 }); // USD per 1M tokens
 // or per call: estimateCost({ model, prompt, pricing: { input: 1, output: 3 } })
 ```
