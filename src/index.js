@@ -1,5 +1,12 @@
 import { PRICING, inferProvider } from './pricing.js';
 
+const custom = new Map();
+
+/** Register or override a model's price (USD per 1M tokens). */
+export function registerModel(model, { provider, input, output }) {
+  custom.set(model, [provider ?? inferProvider(model) ?? 'Custom', input, output]);
+}
+
 /** Rough token estimate (~4 chars/token, word-aware). No tokenizer dependency. */
 export function countTokens(text) {
   if (typeof text !== 'string') throw new TypeError('prompt must be a string');
@@ -10,6 +17,7 @@ export function countTokens(text) {
 }
 
 function lookup(model) {
+  if (custom.has(model)) return custom.get(model);
   if (PRICING[model]) return PRICING[model];
   // longest-prefix match so dated ids like "gpt-4o-2024-08-06" resolve
   const key = Object.keys(PRICING).filter((k) => model.startsWith(k)).sort((a, b) => b.length - a.length)[0];
